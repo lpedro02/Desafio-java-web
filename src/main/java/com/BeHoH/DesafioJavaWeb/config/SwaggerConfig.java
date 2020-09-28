@@ -1,5 +1,4 @@
 package com.BeHoH.DesafioJavaWeb.config;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -43,12 +42,12 @@ public class SwaggerConfig {
 				.globalResponseMessage(RequestMethod.PUT, Arrays.asList(m204put, m403, m404, m422, m500))
 				.globalResponseMessage(RequestMethod.DELETE, Arrays.asList(m204del, m403, m404, m500))
 
-				.select().apis(RequestHandlerSelectors.basePackage("com.youDoing.eventsManager.controllers"))
+				.select().apis(RequestHandlerSelectors.basePackage("com.BeHoH.DesafioJavaWeb.controllers"))
 				.paths(PathSelectors.any()).build().apiInfo(apiInfo());
 	}
 
 	private ApiInfo apiInfo() {
-		return new ApiInfo("API de controle de Eventos", "API de Cadastro de usuarios", "Versão 1.0", "",
+		return new ApiInfo("Desafio Java Web", "API de Cadastro de usuarios e eventos", "Versão 1.0", "",
 				new Contact("Pedro Gomes", "https://gitlab.com/pthiagoconstantino", "peu.lost@outlook.com"), "", "",
 				Collections.emptyList() 
 		);

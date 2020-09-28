@@ -6,4 +6,6 @@ import com.BeHoH.DesafioJavaWeb.models.entities.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 
+	Usuario findByNome(String nome);
+	
 }
