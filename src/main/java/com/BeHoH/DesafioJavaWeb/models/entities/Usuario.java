@@ -2,14 +2,13 @@ package com.BeHoH.DesafioJavaWeb.models.entities;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -17,13 +16,10 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "usuario")
 public class Usuario implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-		
-	@OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-	private  Usuario usuario ;
 	
 	@Id
 	@Column(name = "id")
@@ -32,20 +28,15 @@ public class Usuario implements Serializable {
 			
 	@Column(name = "nome")
    	private String nome;
-
-	/**
-	 * @return the usuario
-	 */
-	public Usuario getUsuario() {
-		return usuario;
+	
+	@ManyToOne
+	private Evento evento;
+	
+	@Override
+	public String toString() {
+		return "FuncionarioDto [nome=" + nome + "]";
 	}
 
-	/**
-	 * @param usuario the usuario to set
-	 */
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
 
 	/**
 	 * @return the id
@@ -54,12 +45,14 @@ public class Usuario implements Serializable {
 		return id;
 	}
 
+
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(long id) {
 		this.id = id;
 	}
+
 
 	/**
 	 * @return the nome
@@ -68,6 +61,7 @@ public class Usuario implements Serializable {
 		return nome;
 	}
 
+
 	/**
 	 * @param nome the nome to set
 	 */
@@ -75,6 +69,21 @@ public class Usuario implements Serializable {
 		this.nome = nome;
 	}
 
-	
+
+	/**
+	 * @return the evento
+	 */
+	public Evento getEvento() {
+		return evento;
+	}
+
+
+	/**
+	 * @param evento the evento to set
+	 */
+	public void setEvento(Evento evento) {
+		this.evento = evento;
+	}
+
 }
 

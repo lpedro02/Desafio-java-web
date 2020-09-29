@@ -14,15 +14,12 @@ public interface UsuarioService {
 	
 	public List<Usuario> FindAll();
 	
-	public Usuario SearchNome(String Nome)throws ObjectNotFoundException;
-	
 	public UsuarioNewDto EntitytoDto(Usuario usuario);
 	
 	public Usuario DtotoEntity(UsuarioNewDto usuarionewdto);
 	
 	public List<UsuarioNewDto> List_UsuariotoList_UsuarioNewDto(List<Usuario> list_usuarios);
 	
-
-	
+	public Usuario Search(String nome) throws ObjectNotFoundException;
 	
 }

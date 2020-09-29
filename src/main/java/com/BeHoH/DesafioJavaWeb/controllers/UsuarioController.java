@@ -26,8 +26,8 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @RestController
-@RequestMapping({"/api"})
-@Api(value = "API REST PFisica")
+@RequestMapping({"/apiusuario"})
+@Api(value = "API REST Usuario")
 @CrossOrigin(origins = "*")
 public class UsuarioController {
 	
@@ -37,18 +37,15 @@ private static final Logger log = LoggerFactory.getLogger(UsuarioController.clas
 	@Autowired
 	private UsuarioService usuarioservice;
 	
-
-
 	@PostMapping
-	@ApiOperation(value="Inseri um Usuario")
+	@ApiOperation(value="Inserir um Usuario")
 	public ResponseEntity<Void>  insert(@RequestBody UsuarioNewDto usuarionewdto) {
 						
 		Usuario obj = usuarioservice.DtotoEntity(usuarionewdto);
 		
-		log.info("Adicionando Pessoa Fisica: {}", obj.toString());
+		log.info("Cadastrando um Usuário: {}", obj.toString());
 		
 		try{usuarioservice.Insert(obj);
-			
 		
 		}
 		
@@ -64,11 +61,11 @@ private static final Logger log = LoggerFactory.getLogger(UsuarioController.clas
 		
 	}
 	
-	@ApiOperation(value="busca todos as Pessoas Fisicas")
-	@GetMapping("/lista")
+	@ApiOperation(value="Buscar todos os Usuários")
+	@GetMapping("/listar")
 	ResponseEntity<List<UsuarioNewDto>> findall() {
 		
-		log.info("entrei na função listar do controller" );
+		log.info("entrei na função listar do  controller" );
 		
 		List<UsuarioNewDto>list_usuarios_newdto = usuarioservice.List_UsuariotoList_UsuarioNewDto(usuarioservice.FindAll());
 				

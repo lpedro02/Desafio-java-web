@@ -2,19 +2,15 @@ package com.BeHoH.DesafioJavaWeb.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.List;
-
-import javax.transaction.Transactional;
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.BeHoH.DesafioJavaWeb.dtos.UsuarioNewDto;
 import com.BeHoH.DesafioJavaWeb.models.dao.repositories.UsuarioRepository;
+import com.BeHoH.DesafioJavaWeb.models.entities.Evento;
 import com.BeHoH.DesafioJavaWeb.models.entities.Usuario;
 import com.BeHoH.DesafioJavaWeb.services.UsuarioService;
 
@@ -27,12 +23,11 @@ public class UsuarioServiceImpl implements UsuarioService{
 	
 	@Autowired
 	private UsuarioRepository usuariorepository;
-	
-		
+			
 	@Override
 	public Usuario Insert(Usuario obj) {
 		
-		log.info("Inserindo uma Pessoa Fisica: {}", obj);
+		log.info("Cadastrando um Usuário: {}", obj);
 		
 		obj = usuariorepository.save(obj);
 			
@@ -43,34 +38,19 @@ public class UsuarioServiceImpl implements UsuarioService{
 	@Override
 	public List<Usuario> FindAll() {
 
-		log.info("Listando a tabela  Pessoa Fisica {}");
+		log.info("Listando todos os Usuarios{}");
 		
 		   return usuariorepository.findAll();
 		 
 	}
 
 	@Override
-	public Usuario SearchNome(String nome) throws ObjectNotFoundException {
-		log.info("Buscando Pessoa Fisica pelo CPF {}", nome);
-		
-		
-		Usuario obj = usuariorepository.findByNome(nome);
-		
-		if (obj == null) {
-			throw new ObjectNotFoundException(
-					"Objeto não encontrado! CPF: " + nome + ", Tipo: " + Usuario.class.getName(), null);
-		}
-		
-		return obj;
-	}
-	
-	@Override
 	public Usuario DtotoEntity(UsuarioNewDto usuarionewdto) {
 			
 		Usuario usuario = new Usuario();
 		
-		usuarionewdto.setNome(usuario.getNome());
-				
+		usuario.setNome(usuarionewdto.getNome());
+		
 		return  usuario;
 			
 	}
@@ -84,6 +64,19 @@ public class UsuarioServiceImpl implements UsuarioService{
 							
 			return usuarionewdto;
 		
+	}
+	
+	@Override
+	public Usuario Search(String nome) throws ObjectNotFoundException {
+		
+		Usuario usuario = usuariorepository.findByNome(nome);
+		
+		if (nome == null) {
+			throw new ObjectNotFoundException(
+					"Objeto não encontrado! CPF: " + nome + ", Tipo: " + Evento.class.getName(), null);
+		}
+
+		return usuario;
 	}
 	
 	@Override
@@ -103,7 +96,5 @@ public class UsuarioServiceImpl implements UsuarioService{
 					
 			return list_usuarionewdtos;
 	}
-	
-	
-	
+
 }

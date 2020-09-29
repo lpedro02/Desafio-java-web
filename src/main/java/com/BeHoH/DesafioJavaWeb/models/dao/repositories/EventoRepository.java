@@ -4,11 +4,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.BeHoH.DesafioJavaWeb.models.entities.Evento;
-import com.BeHoH.DesafioJavaWeb.models.entities.Usuario;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
+public interface EventoRepository extends JpaRepository<Evento, Long>{
+
+	Evento findById(long id);
+	Evento findByNome(String nome);
 	
-	Iterable<Usuario> findByEvento(Evento evento);
-	Usuario findByNome(String nome);
+	
 }

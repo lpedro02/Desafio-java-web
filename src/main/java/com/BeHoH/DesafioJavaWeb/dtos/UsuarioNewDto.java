@@ -10,7 +10,15 @@ public class UsuarioNewDto {
 	@Length(min=3, max=20, message="O tamanho deve ser entre 3 e 20 caracteres")
 	@JsonProperty("Nome")
 	private String nome;
+	
+	
+	public UsuarioNewDto(
+			@NotEmpty(message = "Preenchimento obrigatório") @Length(min = 3, max = 20, message = "O tamanho deve ser entre 3 e 20 caracteres") String nome) {
+		super();
+		this.nome = nome;
+	}
 
+	public UsuarioNewDto() {}	
 	/**
 	 * @return the nome
 	 */
