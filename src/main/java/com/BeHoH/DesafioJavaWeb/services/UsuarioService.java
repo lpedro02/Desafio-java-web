@@ -3,6 +3,8 @@ package com.BeHoH.DesafioJavaWeb.services;
 import java.util.List;
 
 import com.BeHoH.DesafioJavaWeb.dtos.UsuarioNewDto;
+import com.BeHoH.DesafioJavaWeb.dtos.responses.UsuarioResponseDto;
+import com.BeHoH.DesafioJavaWeb.dtos.responses.UsuarioResponseListDto;
 import com.BeHoH.DesafioJavaWeb.models.entities.Usuario;
 
 import javassist.tools.rmi.ObjectNotFoundException;
@@ -18,8 +20,10 @@ public interface UsuarioService {
 	
 	public Usuario DtotoEntity(UsuarioNewDto usuarionewdto);
 	
-	public List<UsuarioNewDto> List_UsuariotoList_UsuarioNewDto(List<Usuario> list_usuarios);
+	public List<UsuarioResponseDto> listUsuariotolistUsuarioResponseDto(List<Usuario> list_usuarios);
 	
 	public Usuario Search(String nome) throws ObjectNotFoundException;
+	
+	public List<UsuarioResponseListDto> listUsuariotolistUsuarioResponseListDto(List<Usuario> list_usuarios);
 	
 }

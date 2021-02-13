@@ -3,20 +3,24 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "evento")
 public class Evento implements Serializable {
 
@@ -24,111 +28,28 @@ public class Evento implements Serializable {
 		
 	@Id
 	@Column(name = "id")
-	@GeneratedValue (strategy = GenerationType.TABLE)
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private long id;
 			
-	@Column(name = "nome")
+	@Column(nullable=false)
    	private String nome;
 	
-	@Column(name = "vagas")
-   	private long vagas;
+	@Column(name = "vagas", nullable=false)
+   	private int vagas;
 
 	@Column(name = "dataInicio")
 	private Date data_inicio;
 	
-	@Column(name = "dataFim")
+	@Column(name = "dataFim", nullable=false)
 	private Date data_fim;
 	
-	@OneToMany
+	@ManyToMany
+    @JoinTable(
+        name = "evento_usuario",
+        joinColumns = @JoinColumn(name = "evento_id"),
+        inverseJoinColumns = @JoinColumn(name = "usuario_id")
+    )
 	private List<Usuario> usuarios;
 	
-	/**
-	 * @return the id
-	 */
-	public long getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	/**
-	 * @return the nome
-	 */
-	public String getNome() {
-		return nome;
-	}
-
-	/**
-	 * @param nome the nome to set
-	 */
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	/**
-	 * @return the vagas
-	 */
-	public long getVagas() {
-		return vagas;
-	}
-
-	/**
-	 * @param vagas the vagas to set
-	 */
-	public void setVagas(long vagas) {
-		this.vagas = vagas;
-	}
-
-	/**
-	 * @return the data_inicio
-	 */
-	public Date getData_inicio() {
-		return data_inicio;
-	}
-
-	/**
-	 * @param data_inicio the data_inicio to set
-	 */
-	public void setData_inicio(Date data_inicio) {
-		this.data_inicio = data_inicio;
-	}
-
-	/**
-	 * @return the data_fim
-	 */
-	public Date getData_fim() {
-		return data_fim;
-	}
-
-	/**
-	 * @param data_fim the data_fim to set
-	 */
-	public void setData_fim(Date data_fim) {
-		this.data_fim = data_fim;
-	}
-	
-	@Override
-	public String toString() {
-		return "FuncionarioDto [id=" + id + ", nome=" + nome + ", vagas=" + vagas + ", data inicio=" + data_inicio + ", data fim=" + data_fim + "]";
-	}
-
-	/**
-	 * @return the usuarios
-	 */
-	public List<Usuario> getUsuarios() {
-		return usuarios;
-	}
-
-	/**
-	 * @param usuarios the usuarios to set
-	 */
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
-	
+		
 }

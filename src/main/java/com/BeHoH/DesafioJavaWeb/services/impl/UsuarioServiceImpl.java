@@ -9,9 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.BeHoH.DesafioJavaWeb.dtos.UsuarioNewDto;
+import com.BeHoH.DesafioJavaWeb.dtos.responses.UsuarioResponseDto;
+import com.BeHoH.DesafioJavaWeb.dtos.responses.UsuarioResponseListDto;
 import com.BeHoH.DesafioJavaWeb.models.dao.repositories.UsuarioRepository;
 import com.BeHoH.DesafioJavaWeb.models.entities.Evento;
 import com.BeHoH.DesafioJavaWeb.models.entities.Usuario;
+import com.BeHoH.DesafioJavaWeb.services.EventoService;
 import com.BeHoH.DesafioJavaWeb.services.UsuarioService;
 
 import javassist.tools.rmi.ObjectNotFoundException;
@@ -23,6 +26,9 @@ public class UsuarioServiceImpl implements UsuarioService{
 	
 	@Autowired
 	private UsuarioRepository usuariorepository;
+	
+	@Autowired
+	private EventoService eventoService;
 			
 	@Override
 	public Usuario Insert(Usuario obj) {
@@ -80,21 +86,40 @@ public class UsuarioServiceImpl implements UsuarioService{
 	}
 	
 	@Override
-	public List<UsuarioNewDto> List_UsuariotoList_UsuarioNewDto(List<Usuario> list_usuarios) {
+	public List<UsuarioResponseDto> listUsuariotolistUsuarioResponseDto(List<Usuario> list_usuarios) {
 			
-		List<UsuarioNewDto>list_usuarionewdtos = new ArrayList<UsuarioNewDto>();
+		List<UsuarioResponseDto>listUsuarioResponseDtos = new ArrayList<UsuarioResponseDto>();
 			
 			for(Usuario usuario : list_usuarios ) {
 			
-				UsuarioNewDto usuarionewdto = new UsuarioNewDto();
+				UsuarioResponseDto usuarioResponseDto = new UsuarioResponseDto();
 				
-				usuarionewdto.setNome(usuario.getNome());
+				usuarioResponseDto.setNome(usuario.getNome());
 				
-				list_usuarionewdtos.add(usuarionewdto);
+				listUsuarioResponseDtos.add(usuarioResponseDto);
 				
 			}
 					
-			return list_usuarionewdtos;
+			return listUsuarioResponseDtos;
+	}
+	
+	@Override
+	public List<UsuarioResponseListDto> listUsuariotolistUsuarioResponseListDto(List<Usuario> list_usuarios) {
+			
+		List<UsuarioResponseListDto>listUsuarioResponseDtos = new ArrayList<UsuarioResponseListDto>();
+			
+			for(Usuario usuario : list_usuarios ) {
+			
+				UsuarioResponseListDto usuarioResponseListDto = new UsuarioResponseListDto();
+				
+				usuarioResponseListDto.setNome(usuario.getNome());
+				usuarioResponseListDto.setLista_eventos(eventoService.List_EventotoList_EventResponseDto(usuario.getEventos()));
+				listUsuarioResponseDtos.add(usuarioResponseListDto);
+				
+			}
+					
+			return listUsuarioResponseDtos;
+			
 	}
 
 }

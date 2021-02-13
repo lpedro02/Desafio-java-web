@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.BeHoH.DesafioJavaWeb.dtos.UsuarioNewDto;
+import com.BeHoH.DesafioJavaWeb.dtos.responses.UsuarioResponseListDto;
 import com.BeHoH.DesafioJavaWeb.models.entities.Usuario;
 import com.BeHoH.DesafioJavaWeb.services.UsuarioService;
 
@@ -63,11 +64,11 @@ private static final Logger log = LoggerFactory.getLogger(UsuarioController.clas
 	
 	@ApiOperation(value="Buscar todos os Usuários")
 	@GetMapping("/listar")
-	ResponseEntity<List<UsuarioNewDto>> findall() {
+	ResponseEntity<List<UsuarioResponseListDto>> findall() {
 		
 		log.info("entrei na função listar do  controller" );
 		
-		List<UsuarioNewDto>list_usuarios_newdto = usuarioservice.List_UsuariotoList_UsuarioNewDto(usuarioservice.FindAll());
+		List<UsuarioResponseListDto>list_usuarios_newdto = usuarioservice.listUsuariotolistUsuarioResponseListDto((usuarioservice.FindAll()));
 				
 		return ResponseEntity.ok().body(list_usuarios_newdto);
 		

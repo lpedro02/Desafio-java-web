@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.BeHoH.DesafioJavaWeb.dtos.EventoNewDto;
-import com.BeHoH.DesafioJavaWeb.dtos.EventoResponseDto;
+import com.BeHoH.DesafioJavaWeb.dtos.responses.EventoResponseDto;
 import com.BeHoH.DesafioJavaWeb.models.entities.Evento;
 import com.BeHoH.DesafioJavaWeb.models.entities.Usuario;
 
@@ -17,7 +17,7 @@ public interface EventoService {
 	
 	public List<Evento> FindAll();
 	
-	public Evento DtotoEntity(EventoNewDto eventonewdto);
+	public Evento DtotoEntity(EventoNewDto eventonewdto) throws ParseException;
 	
 	public EventoResponseDto EntitytoResponseDto(Evento evento);
 	
@@ -27,14 +27,14 @@ public interface EventoService {
 	
 	public Date StringtoDate(String dataRecebida) throws ParseException;
 
-	public Iterable<Usuario> InsertUsuariotoEvento(long id, Usuario usuario);
+	public Evento EventoaddUser(String nome,String nome_usuario ) throws ObjectNotFoundException;
 	
-	public Evento Update(String nome,String nome_usuario ) throws ObjectNotFoundException;
-	
-	public Usuario Verificarusuariolista(List<Usuario> usuarios, String nome);
+	public boolean Verificarusuariolista(List<Usuario> usuarios, String nome);
 	
 	public boolean ListaCheia(Evento evento);
 	
 	public Evento Search(String nome) throws ObjectNotFoundException;
+	
+	public boolean Verificarhoraevento(Date data_inicio);
 
 }
